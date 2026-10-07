@@ -1,0 +1,55 @@
+<h1>Quản lý Sách (Cloud Computing)</h1>
+<p>Số lượt truy cập trong phiên (Stateless Session): <strong>{{views}}</strong></p>
+
+{{#if flash}}<p class="{{flash.type}}">{{flash.message}}</p>{{/if}}
+
+<h2>Thêm sách mới</h2>
+<form method="POST" action="/books">
+  <p>
+    <label>Mã sách (Bắt buộc bắt đầu bằng <strong>{{student.prefix}}</strong> - 3 số cuối MSSV):</label>
+    <input name="code" value="{{form.code}}" placeholder="Ví dụ: {{student.prefix}}001" required>
+  </p>
+  <p>
+    <label>Tên sách:</label>
+    <input name="title" value="{{form.title}}" placeholder="Nhập tên sách" required>
+  </p>
+  <p>
+    <label>Tác giả:</label>
+    <input name="author" value="{{form.author}}" placeholder="Nhập tên tác giả">
+  </p>
+  <p>
+    <label>Giá gốc (VNĐ):</label>
+    <input name="price" type="number" step="0.01" min="0.01" value="{{form.price}}" placeholder="Nhập giá gốc" required>
+  </p>
+  <button type="submit">Thêm Sách</button>
+</form>
+
+<h2>Danh sách sách hiện có</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Mã sách</th>
+      <th>Tên sách</th>
+      <th>Tác giả</th>
+      <th>Giá gốc</th>
+      <th>VAT</th>
+      <th>Giá sau thuế</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each books}}
+    <tr>
+      <td><strong>{{code}}</strong></td>
+      <td>{{title}}</td>
+      <td>{{author}}</td>
+      <td>{{price}}</td>
+      <td>{{vat}}%</td>
+      <td><strong>{{priceAfterTax}}</strong></td>
+    </tr>
+  {{else}}
+    <tr>
+      <td colspan="6" style="text-align: center; color: #6b7280;">Chưa có sách nào trong cơ sở dữ liệu.</td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>
